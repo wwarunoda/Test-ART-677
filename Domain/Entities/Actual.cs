@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain
 {
-    public class Actual : BaseEntity
+    public class Actual : BaseResidenceEntity
     {
         [Key]
         public override string Id { get; set; } = Guid.NewGuid().ToString();

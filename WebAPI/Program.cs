@@ -1,6 +1,7 @@
 using Application.Services;
 using Application.Services.Abstractions;
 using Domain.Repositories.Abstractions;
+using ExceptionHandling.Middlewares;
 using Infrastructure.Persistence;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.HttpLogging;
@@ -20,6 +21,7 @@ builder.Services.AddScoped<IResidenceService, ResidenceService>();
 builder.Services.AddScoped<IResidenceRepository, ResidenceRepository>();
 builder.Services.AddSingleton<ILoggerManager, LoggerManager>();
 
+//Enable cores
 var devCorsPolicy = "devCorsPolicy";
 builder.Services.AddCors(options =>
 {
@@ -30,11 +32,13 @@ builder.Services.AddCors(options =>
         //builder.SetIsOriginAllowed(origin => true);
     });
 });
+
 //Configure logger service
 LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+
 //Get logging instance
 var logger = builder.Services.BuildServiceProvider().GetService<ILoggerManager>();
-var logger2 = builder.Services.BuildServiceProvider().GetService<IServiceProvider>();
+
 builder.Services.AddHttpLogging(logging =>
 {
     
@@ -47,6 +51,7 @@ builder.Services.AddHttpLogging(logging =>
 var app = builder.Build();
 
 app.UseHttpLogging();
+app.UseMiddleware<ExceptionMiddlewareExtensions>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

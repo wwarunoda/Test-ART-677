@@ -14,10 +14,8 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ResidenceController : BaseController<Actual>
     {
-        private readonly ILoggerManager _logger;
-        public ResidenceController(IResidenceService residenceService, ILoggerManager logger) : base(residenceService)
+        public ResidenceController(IResidenceService residenceService) : base(residenceService)
         {
-            _logger = logger;
         }
         /// <summary>
         /// Get Population by state

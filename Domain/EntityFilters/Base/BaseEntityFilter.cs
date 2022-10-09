@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Domain.EntityFilters.Base 
 {
-    public abstract  class BaseEntityFilter<T> where T : BaseEntity
+    public abstract  class BaseEntityFilter<T> where T : BaseResidenceEntity
     {
         public string CreatedBy { get; set; }
         public DateTime? CreatedAtFrom { get; set; }

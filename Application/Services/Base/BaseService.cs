@@ -7,7 +7,7 @@ using Domain.Repositories.Abstractions.Base;
 
 namespace Application.Services.Base
 {
-    public abstract class BaseService<T> : IBaseService<T> where T : BaseEntity
+    public abstract class BaseService<T> : IBaseService<T> where T : BaseResidenceEntity
     {
         public readonly IBaseRepository<T> _repository;
         public readonly IMapper _mapper;
@@ -23,6 +23,10 @@ namespace Application.Services.Base
             List<int> states = state.Split(',').ToList().Select(int.Parse).ToList();
             var entity = await _repository.GetByStateAsync(states, communeType);
             var newVM = new ResponseVM<U>() { Data = _mapper.Map<U>(entity) };
+            if (entity.Count() == 0)
+            {
+                newVM.Message = MessageTypes.No_Data_Found.AsText();
+            }
             return newVM;
         }
 

@@ -1,11 +1,6 @@
 ﻿using Domain;
-using Infrastructure.Persistence.Configurations.Base;
 using OfficeOpenXml;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Infrastructure.Persistence.Configurations
 {
@@ -38,9 +33,10 @@ namespace Infrastructure.Persistence.Configurations
                         var estimate = new Estimate()
                         {
                             State = Convert.ToInt32(workSheet.Cells[row, 1].Value),
-                            Population = Convert.ToDecimal(workSheet.Cells[row, 2].Value),
-                            Household = Convert.ToInt32(workSheet.Cells[row, 3].Value),
-                            District = workSheet.Cells[row, 4].Value?.ToString()
+                            District = workSheet.Cells[row, 2].Value?.ToString(),
+                            Population = Convert.ToDecimal(workSheet.Cells[row, 3].Value),
+                            Household = Convert.ToDecimal(workSheet.Cells[row, 4].Value)
+                            
                         };
        
                         data.Add((T)Convert.ChangeType(estimate, typeof(T)));

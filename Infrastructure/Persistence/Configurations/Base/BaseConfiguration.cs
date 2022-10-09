@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Persistence.Configurations.Base
 {
-    public  class BaseConfiguration<T> where T: BaseEntity
+    public  class BaseConfiguration<T> where T: BaseResidenceEntity
     {
         public virtual void Configure(EntityTypeBuilder<T> builder)
         {
